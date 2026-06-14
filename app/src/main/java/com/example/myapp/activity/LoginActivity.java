@@ -1,17 +1,26 @@
 package com.example.myapp.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapp.R;
+import com.example.myapp.utils.Api;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class LoginActivity extends BaseActivity {
 
@@ -36,6 +45,9 @@ public class LoginActivity extends BaseActivity {
         etPwd = findViewById(R.id.et_pwd);
         btnLogin = findViewById(R.id.btn_login);
 
+        etAccount.setText("13612345678");
+        etPwd.setText("admin");
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +67,24 @@ public class LoginActivity extends BaseActivity {
             showToast("请输入密码");
             return;
         }
-       showToast("登录成功");
+
+        Api.login(account, pwd, new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                runOnUiThread(() -> {
+                    showToast("请求失败:"+e.toString());
+                });
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String result = response.body().string();
+                Log.e("MyLoginActivity", "onResponse: "+result);
+                runOnUiThread(() -> {
+                    showToast(result);
+                });
+
+            }
+        });
     }
 }
