@@ -6,15 +6,15 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.myapp.activity.BaseActivity;
 import com.example.myapp.activity.LoginActivity;
 import com.example.myapp.activity.RegisterActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private Button btnLogin;
     private  Button btnRegister;
@@ -34,8 +34,7 @@ public class SplashActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
+                navigationTo(LoginActivity.class);
             }
         });
 
@@ -43,8 +42,7 @@ public class SplashActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
-                startActivity(intent);
+                navigationTo(RegisterActivity.class);
             }
         });
     }
