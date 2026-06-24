@@ -14,7 +14,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapp.R;
+import com.example.myapp.entity.LoginRespond;
 import com.example.myapp.utils.Api;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -45,8 +47,8 @@ public class LoginActivity extends BaseActivity {
         etPwd = findViewById(R.id.et_pwd);
         btnLogin = findViewById(R.id.btn_login);
 
-        etAccount.setText("13612345678");
-        etPwd.setText("admin");
+        etAccount.setText("admin");
+        etPwd.setText("123456");
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +74,27 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 runOnUiThread(() -> {
-                    showToast("请求失败:"+e.toString());
+                    showToast("请求失败:" + e.toString());
                 });
             }
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 String result = response.body().string();
-                Log.e("MyLoginActivity", "onResponse: "+result);
+                Log.e("MyLoginActivity", "onResponse: " + result);
                 runOnUiThread(() -> {
-                    showToast(result);
+                    Gson gson = new Gson();
+                    LoginRespond res = gson.fromJson(result, LoginRespond.class);
+                    if (res.getCode() == 200) {
+                        String token = res.getData().getToken();
+                        saveStringToSp("token", token);
+                        showToast("登陆成功");
+                        navigationTo(HomeActivity.class);
+                    } else {
+                        showToast("登陆失败");
+                    }
                 });
+
 
             }
         });

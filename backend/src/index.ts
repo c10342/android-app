@@ -35,8 +35,8 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 // 启动服务
-app.listen(config.port, () => {
-  console.log(`🚀 服务已启动: http://localhost:${config.port}`);
+app.listen(config.port,config.host, () => {
+  console.log(`🚀 服务已启动: http://${config.host}:${config.port}`);
   console.log(`   环境: ${config.nodeEnv}`);
 });
 

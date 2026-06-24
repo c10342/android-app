@@ -6,10 +6,10 @@ import java.util.Map;
 import okhttp3.Callback;
 
 public class Api {
-    public static void login(String account, String pwd, Callback callback){
+    public static void login(String username, String password, Callback callback){
         Map<String,Object> params = new HashMap<>();
-        params.put("mobile",account);
-        params.put("password",pwd);
-        HttpUtil.post("/app/login",params,callback);
+        params.put("username",username);
+        params.put("password",password);
+        HttpUtil.post("/api/auth/login",params,callback);
     }
 }
