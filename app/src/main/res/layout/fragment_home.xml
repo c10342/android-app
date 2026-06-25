@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="首页"
-        android:textSize="20sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="115dp"
+        android:background="#344261"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="39dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="26dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/shape_search_box">
+            <ImageView
+                android:layout_marginLeft="13dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@mipmap/search"/>
+            <EditText
+                android:layout_marginLeft="11dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="搜索你喜欢的视频"
+                android:textColor="@color/black"
+                android:textColorHint="#737373"
+                android:textSize="15sp"
+                android:background="@null"/>
+        </LinearLayout>
+    </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>
