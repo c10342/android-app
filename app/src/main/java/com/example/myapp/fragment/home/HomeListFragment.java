@@ -11,6 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.myapp.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 首页 Tab 切换后的子页面占位，展示当前 Tab 的标题。
@@ -32,27 +40,26 @@ public class HomeListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        String title = "";
-        Bundle args = getArguments();
-        if (args != null) {
-            title = args.getString(ARG_TITLE, "");
+        View v = inflater.inflate(R.layout.fragment_home_list, container, false);
+        RecyclerView recyclerView = v.findViewById(R.id.recyclerView);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        // 添加默认分割线（仅 LinearLayoutManager 支持）
+        DividerItemDecoration decoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(decoration);
+        List<ListItemEntity> list = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            ListItemEntity item = new ListItemEntity();
+            item.setTitle("韭菜盒子新做法，不发面不汤面");
+            item.setName("大胃王");
+            item.setDzCount(i * 2);
+            item.setCommentCount(i * 3);
+            item.setCollectCount(i * 4);
+            list.add(item);
         }
-
-        FrameLayout root = new FrameLayout(requireContext());
-        root.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-
-        TextView textView = new TextView(requireContext());
-        textView.setText(title);
-        textView.setTextSize(20f);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        textView.setLayoutParams(params);
-        root.addView(textView);
-
-        return root;
+        ListItemAdapter listItemAdapter = new ListItemAdapter(getActivity(), list);
+        recyclerView.setAdapter(listItemAdapter);
+        return v;
     }
 }
