@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myapp.R;
 import com.example.myapp.fragment.CollectFragment;
-import com.example.myapp.fragment.HomeFragment;
+import com.example.myapp.fragment.home.HomeFragment;
 import com.example.myapp.fragment.MyFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
