@@ -10,6 +10,13 @@ public class Api {
         Map<String,Object> params = new HashMap<>();
         params.put("username",username);
         params.put("password",password);
-        HttpUtil.post("/api/auth/login",params,callback);
+        HttpUtil.post("/auth/login",params,callback);
+    }
+
+    public static void getHomeList(int pageNumber,int pageSize, Callback callback){
+        Map<String,Object> params = new HashMap<>();
+        params.put("page",pageNumber);
+        params.put("pageSize",pageSize);
+        HttpUtil.get("/news/list",params,callback);
     }
 }

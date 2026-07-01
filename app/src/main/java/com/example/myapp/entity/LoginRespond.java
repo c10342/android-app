@@ -1,6 +1,6 @@
 package com.example.myapp.entity;
 
-public class LoginRespond {
+public class LoginRespond extends BaseRespond {
 
     /**
      * code : 200
@@ -8,25 +8,8 @@ public class LoginRespond {
      * data : {"token":"d56d4cca168bf5d08c144a825496aaa9396da335b931a7d61e2561e41bfb2535","username":"admin"}
      */
 
-    private int code;
-    private String message;
+
     private DataBean data;
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public DataBean getData() {
         return data;

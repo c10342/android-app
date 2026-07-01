@@ -61,43 +61,42 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(String account, String pwd) {
-        navigationTo(HomeActivity.class);
-//        if (account.isEmpty()) {
-//            showToast("请输入账号");
-//            return;
-//        }
-//        if (pwd.isEmpty()) {
-//            showToast("请输入密码");
-//            return;
-//        }
-//
-//        Api.login(account, pwd, new Callback() {
-//            @Override
-//            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                runOnUiThread(() -> {
-//                    showToast("请求失败:" + e.toString());
-//                });
-//            }
-//
-//            @Override
-//            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-//                String result = response.body().string();
-//                Log.e("MyLoginActivity", "onResponse: " + result);
-//                runOnUiThread(() -> {
-//                    Gson gson = new Gson();
-//                    LoginRespond res = gson.fromJson(result, LoginRespond.class);
-//                    if (res.getCode() == 200) {
-//                        String token = res.getData().getToken();
-//                        saveStringToSp("token", token);
-//                        showToast("登陆成功");
-//                        navigationTo(HomeActivity.class);
-//                    } else {
-//                        showToast("登陆失败");
-//                    }
-//                });
-//
-//
-//            }
-//        });
+        if (account.isEmpty()) {
+            showToast("请输入账号");
+            return;
+        }
+        if (pwd.isEmpty()) {
+            showToast("请输入密码");
+            return;
+        }
+
+        Api.login(account, pwd, new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                runOnUiThread(() -> {
+                    showToast("请求失败:" + e.toString());
+                });
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                String result = response.body().string();
+                Log.e("MyLoginActivity", "onResponse: " + result);
+                runOnUiThread(() -> {
+                    Gson gson = new Gson();
+                    LoginRespond res = gson.fromJson(result, LoginRespond.class);
+                    if (res.getCode() == 200) {
+                        String token = res.getData().getToken();
+                        saveStringToSp("token", token);
+                        showToast("登陆成功");
+                        navigationTo(HomeActivity.class);
+                    } else {
+                        showToast("登陆失败");
+                    }
+                });
+
+
+            }
+        });
     }
 }

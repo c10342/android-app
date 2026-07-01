@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,8 +39,19 @@ public class ListItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         vh.tvTitle.setText(item.getTitle());
         vh.tvName.setText(item.getName());
         vh.tvCommentCount.setText(String.valueOf(item.getCommentCount()));
-        vh.tvDzCount.setText(String.valueOf(item.getDzCount()));
-        vh.tvCollectCount.setText(String.valueOf(item.getCollectCount()));
+        vh.tvDzCount.setText(String.valueOf(item.getLikeCount()));
+        vh.tvCollectCount.setText(String.valueOf(item.getFavoriteCount()));
+        Picasso.get()
+                .load(item.getAvatar())
+                .fit()
+                .error(R.mipmap.ic_launcher)
+                .transform(new CircleTransform())
+                .into(vh.ivAvatar);
+        Picasso.get()
+                .load(item.getCover())
+                .fit()
+                .centerCrop()
+                .into(vh.ivBanner);
     }
 
     @Override
@@ -58,6 +71,11 @@ public class ListItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private TextView tvCollectCount;
 
+        private ImageView ivAvatar;
+
+
+        private ImageView ivBanner;
+
         public VideHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tv_title);
@@ -65,6 +83,8 @@ public class ListItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             tvCommentCount = itemView.findViewById(R.id.tv_comment_count);
             tvDzCount = itemView.findViewById(R.id.tv_dz_count);
             tvCollectCount = itemView.findViewById(R.id.tv_collect_count);
+            ivAvatar = itemView.findViewById(R.id.iv_avatar);
+            ivBanner = itemView.findViewById(R.id.iv_banner);
         }
     }
 }

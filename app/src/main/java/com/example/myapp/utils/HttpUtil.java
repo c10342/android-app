@@ -35,7 +35,7 @@ public class HttpUtil {
     }
 
     public static void get(String url, @Nullable Map<String, Object> params, Callback callback) {
-        HttpUrl httpUrl = HttpUrl.parse(AppConfig.apiUrl+url);
+        HttpUrl httpUrl = HttpUrl.parse(AppConfig.apiUrl+ url);
         if (httpUrl == null) {
             throw new IllegalArgumentException("Invalid url: " + url);
         }

@@ -6,6 +6,7 @@ import { requestLogger } from './middleware/requestLogger';
 import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import healthRoutes from './routes/healthRoutes';
+import newsRoutes from './routes/newsRoutes';
 import { ApiResponse } from './types';
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(requestLogger);
 // 路由
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/news', newsRoutes);
 
 // 根路由
 app.get('/', (_req: Request, res: Response) => {
